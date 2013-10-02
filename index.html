@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> LAUKIK</title>
+</head>
+<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"></script>
+
+<body>
+	<input type="text" id = 'area'>
+	<input type="text" id = 'z'>
+	<input type="button" id="x" />	
+
+
+<script>
+	var socket_name = io.connect('http://localhost:8080');
+	//var j = jQuery.noConflict();
+	$(function(){
+		$('#x').click(function(){
+			var data = $('#area').val();
+			console.log(data);
+			$('#area').val('');
+			socket_name.emit('hit-event',data);
+		});
+		socket_name.on('display',function(data){
+			$('#z').val(data);
+		});
+	});
+</script>
+</body>
+</html>
